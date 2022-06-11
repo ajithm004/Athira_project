@@ -1,0 +1,126 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Slider - Jquery</title>
+  <link rel="stylesheet" href="{% static 'owl_carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'owl_theme.css' %}">
+
+  <script src="{% static 'jquery.js' %}"></script>
+  <script src="{% static 'owl_carousel.js' %}"></script>
+  <script>
+    $(document).ready(function(){
+      new reload_page();
+
+      function reload_page(){
+        $.ajax({
+          url: "http://127.0.0.1:8000/",
+          complete: function(data) {
+            if(data.status == 200){
+              setTimeout(function(){
+                location.reload();
+              }, 4000);
+            }
+          }
+        });
+      };
+    });
+  </script>
+
+  <style>
+.home-demo {
+  display: flex;
+}
+.home-demo .item {
+    background: #ff3f4d;
+}
+.home-demo h2 {
+    color: #FFF;
+    text-align: center;
+    padding: 5rem 0;
+    margin: 0;
+    font-style: italic;
+    font-weight: 300;
+}
+.col-left {
+  width: 70%;
+}
+.col-rt {
+  padding-left: 25px;
+}
+.col-rt p {
+  background: #e9e9e9;
+  padding: 8px;
+  text-align: center;
+}
+.owl-carousel .owl-item img {
+      width: auto;
+      height: 100%;
+    }
+ </style>
+  <script>
+$(document).ready(function () {
+  // Owl Carousel
+  var owl = $(".owl-carousel");
+  owl.owlCarousel({
+    items: 1,
+    margin: 10,
+    loop: true,
+    nav: false,
+    dots: true,  // set to false for removing dots
+    autoplay:true,
+    autoplayTimeout:1000
+  });
+})
+  </script>
+
+</head>
+<body>
+  <div class="home-demo">
+  <div class="col-left">
+    <div class="owl-carousel owl-theme">
+      {% if form.result.image_right %}
+        <div class="item"><img src="{{ form.result.image_right }}"/></div>
+      {% endif %}
+      {% if form.result.image_left %}
+        <div class="item"><img src="{{ form.result.image_left }}"/></div>
+      {% endif %}
+      {% if form.result.image_rear %}
+        <div class="item"><img src="{{ form.result.image_rear }}"/></div>
+      {% endif %}
+      {% if form.result.image_top %}
+        <div class="item"><img src="{{ form.result.image_top }}"/></div>
+      {% endif %}
+    </div>
+    </div>
+  <div class="col-rt">
+    {% if form.result.container_code %}
+      <p> {{ form.result.container_code }} </p>
+    {% endif %}
+    {% if form.result.date_time %}
+      <p> {{ form.result.date_time }} </p>
+    {% endif %}
+    {% if form.result.ISO_code %}
+      <p> {{ form.result.ISO_code }} </p>
+    {% endif %}
+    {% if form.result.container_size %}
+      <p> {{ form.result.container_size }} </p>
+    {% endif %}
+    {% if form.result.container_type %}
+      <p> {{ form.result.container_type }} </p>
+    {% endif %}
+    {% if form.result.gate %}
+      <p> {{ form.result.gate }} </p>
+    {% endif %}
+    {% if form.result.valid_container %}
+      <p> {{ form.result.valid_container }} </p>
+    {% endif %}
+    {% if form.result.container_owner %}
+      <p> {{ form.result.container_owner }} </p>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>
